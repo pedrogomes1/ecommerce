@@ -3,7 +3,7 @@ import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import { Header } from './components/Header';
-import Routes from './routes';
+import { MainRoutes } from './routes';
 
 import { theme } from './styles/theme';
 
@@ -13,7 +13,7 @@ const App = () => {
       <Router>
         <CssBaseline />
         <Header />
-        <Routes />
+        <MainRoutes />
       </Router>
     </ThemeProvider>
   );
