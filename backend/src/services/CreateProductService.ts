@@ -5,11 +5,12 @@ import { CategoryRepository } from "../repository/CategoryRepository";
 interface ICreateProduct {
   category_id: string;
   name: string;
+  image_link: string;
   price: number;
 }
 
 class CreateProductService {
-  async execute({ category_id, name, price }: ICreateProduct) {
+  async execute({ category_id, name, image_link, price }: ICreateProduct) {
     const productRepository = getCustomRepository(ProductRepository);
     const categoryRepository = getCustomRepository(CategoryRepository);
 
@@ -19,7 +20,7 @@ class CreateProductService {
       throw new Error("Categories does not exists")
     }
 
-    const newProduct = productRepository.create({ name, price, category_id })
+    const newProduct = productRepository.create({ name, image_link, price, category_id })
 
     await productRepository.save(newProduct);
 

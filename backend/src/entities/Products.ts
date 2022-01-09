@@ -12,6 +12,9 @@ class Products {
 
   @Column()
   price: number;
+
+  @Column()
+  image_link: string;
   
   @Column()
   category_id: string;
