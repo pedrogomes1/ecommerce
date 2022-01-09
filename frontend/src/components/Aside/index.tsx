@@ -4,14 +4,12 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
-  TextField,
-  InputAdornment,
 } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
-import Search from '@mui/icons-material/Search';
-import axios from 'axios';
+import { useProducts } from '../../hooks/products';
 
 import * as S from './styles';
+import { api } from '../../services/api';
 
 type CategoryProps = Array<{
   id: string;
@@ -19,52 +17,56 @@ type CategoryProps = Array<{
   checked: boolean;
 }>;
 
-const getParamsFormatted = (categories: CategoryProps) => {
+const getCategoryIds = (categories: CategoryProps) => {
   const categoryIds = categories
     .filter(({ checked }) => checked)
     .map((item) => item.id);
   return categoryIds;
 };
 
+const formatCategories = (categories: CategoryProps) => {
+  return categories.map(({ id, name }) => ({
+    id,
+    name,
+    checked: false,
+  }));
+};
+
 const Aside = () => {
   const [categories, setCategories] = useState<CategoryProps>([]);
-  const [name, setName] = useState('');
 
-  const handleChange = (
+  const { products, fetchProducts } = useProducts();
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { data } = await api.get('/category');
+        setCategories(formatCategories(data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    if (categories.length) {
+      const categoryIds = getCategoryIds(categories);
+      fetchProducts(categoryIds);
+    }
+  }, [fetchProducts, categories]);
+
+  const handleCheckboxChange = (
     event: ChangeEvent<HTMLInputElement>,
-    index: number,
+    categoryId: string,
   ) => {
-    const categoriesUpdated = categories.map((category, idx) => ({
+    const categoriesUpdated = categories.map((category) => ({
       ...category,
-      checked: index === idx ? event.target.checked : category.checked,
+      checked:
+        category.id === categoryId ? event.target.checked : category.checked,
     }));
     setCategories(categoriesUpdated);
   };
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:5000/product', {
-        params: {
-          categories: getParamsFormatted(categories),
-          name,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
-  }, [categories, name]);
-
-  useEffect(() => {
-    axios.get('http://localhost:5000/category').then((res) => {
-      setCategories(
-        res.data.map(({ name, id }: { name: string; id: string }) => ({
-          name,
-          id,
-          checked: false,
-        })),
-      );
-    });
-  }, []);
 
   return (
     <S.Aside>
@@ -72,35 +74,26 @@ const Aside = () => {
         Categorias
       </Typography>
 
-      <TextField
-        label="Nome do produto"
-        variant="outlined"
-        onChange={(event) => setName(event.target.value)}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Search />
-            </InputAdornment>
-          ),
-        }}
-      />
-      <FormControl component="fieldset" variant="standard">
-        <FormGroup>
-          {categories.length > 0 &&
-            categories.map((category: any, index) => (
+      {!!categories.length && (
+        <FormControl component="fieldset" variant="standard">
+          <FormGroup>
+            {categories.map((category) => (
               <FormControlLabel
                 key={category.id}
                 control={
                   <Checkbox
-                    onChange={(event) => handleChange(event, index)}
+                    onChange={(event) =>
+                      handleCheckboxChange(event, category.id)
+                    }
                     name={category.id}
                   />
                 }
                 label={category.name}
               />
             ))}
-        </FormGroup>
-      </FormControl>
+          </FormGroup>
+        </FormControl>
+      )}
     </S.Aside>
   );
 };
