@@ -6,6 +6,7 @@ import { CreateCategoryController } from "./controllers/CreateCategoryController
 import { UpdateCategoryController } from "./controllers/UpdateCategoryController";
 import { DeleteCategoryController } from "./controllers/DeleteCategoryController";
 import { CreateProductController } from "./controllers/CreateProductController";
+import { UpdateProductController } from "./controllers/UpdateProductController";
 import { ListProductsController } from "./controllers/ListProductsController";
 
 const router = Router();
@@ -19,6 +20,7 @@ const updateCategoryController = new UpdateCategoryController();
 const deleteCategoryController = new DeleteCategoryController();
 
 const createProductController = new CreateProductController();
+const updateProductController = new UpdateProductController();
 const listProductController = new ListProductsController();
 
 
@@ -36,5 +38,6 @@ router.get('/category', listCategoriesController.handle)
 
 router.get('/product', listProductController.handle)
 router.post('/product', createProductController.handle)
+router.put('/product/:id', updateProductController.handle)
 
 export { router }
