@@ -8,7 +8,7 @@ class Products {
   readonly id: string;
 
   @Column()
-  nome: string;
+  name: string;
 
   @Column()
   price: number;
