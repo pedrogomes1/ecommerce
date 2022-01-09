@@ -32,7 +32,7 @@ router.post('/message', createMessageController.handle)
 router.post('/category', createCategoryController.handle)
 router.put('/category/:id', updateCategoryController.handle)
 router.delete('/category/:id', deleteCategoryController.handle)
-router.get('/categories', listCategoriesController.handle)
+router.get('/category', listCategoriesController.handle)
 
 router.get('/product', listProductController.handle)
 router.post('/product', createProductController.handle)
