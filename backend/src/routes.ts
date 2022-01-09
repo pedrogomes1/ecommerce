@@ -1,14 +1,16 @@
 import { Router, Request, Response } from "express";
 import { CreateMessageController } from "./controllers/CreateMessageController";
 import { ListMessageController } from "./controllers/ListMessageController";
-import { CategoryController } from "./controllers/CreateCategoryController";
+import { CreateCategoryController } from "./controllers/CreateCategoryController";
+import { UpdateCategoryController } from "./controllers/UpdateCategoryController";
 import { ListCategoriesController } from "./controllers/ListCategoriesController";
 
 const router = Router();
 
 const createMessageController = new CreateMessageController();
 const listMessageController = new ListMessageController();
-const categoryController = new CategoryController();
+const createCategoryController = new CreateCategoryController();
+const updateCategoryController = new UpdateCategoryController();
 const listCategoriesController = new ListCategoriesController();
 
 router.get('/', (request: Request, response: Response) => {
@@ -17,7 +19,8 @@ router.get('/', (request: Request, response: Response) => {
 
 router.get('/message', listMessageController.handle)
 router.post('/message', createMessageController.handle)
-router.post('/category', categoryController.handle)
+router.post('/category', createCategoryController.handle)
+router.put('/category/:id', updateCategoryController.handle)
 router.get('/categories', listCategoriesController.handle)
 
 export { router }
