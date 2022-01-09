@@ -1,12 +1,12 @@
 import { getCustomRepository } from "typeorm";
 import { CategoryRepository } from "../repository/CategoryRepository";
 
-interface IMessage {
+interface ICreateCategory {
   name: string;
 }
 
 class CreateCategoryService {
-  async execute({ name }: IMessage) {
+  async execute({ name }: ICreateCategory) {
     const categoryRepository = getCustomRepository(CategoryRepository);
 
     const categoryAlreadyExists = await categoryRepository.findOne({
