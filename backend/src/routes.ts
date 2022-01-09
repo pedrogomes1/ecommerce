@@ -5,9 +5,10 @@ import { ListCategoriesController } from "./controllers/ListCategoriesController
 import { CreateCategoryController } from "./controllers/CreateCategoryController";
 import { UpdateCategoryController } from "./controllers/UpdateCategoryController";
 import { DeleteCategoryController } from "./controllers/DeleteCategoryController";
+import { ListProductsController } from "./controllers/ListProductsController";
 import { CreateProductController } from "./controllers/CreateProductController";
 import { UpdateProductController } from "./controllers/UpdateProductController";
-import { ListProductsController } from "./controllers/ListProductsController";
+import { DeleteProductController } from "./controllers/DeleteProductController";
 
 const router = Router();
 
@@ -19,9 +20,10 @@ const createCategoryController = new CreateCategoryController();
 const updateCategoryController = new UpdateCategoryController();
 const deleteCategoryController = new DeleteCategoryController();
 
+const listProductController = new ListProductsController();
 const createProductController = new CreateProductController();
 const updateProductController = new UpdateProductController();
-const listProductController = new ListProductsController();
+const deleteProductController = new DeleteProductController();
 
 
 router.get('/', (request: Request, response: Response) => {
@@ -31,13 +33,14 @@ router.get('/', (request: Request, response: Response) => {
 router.get('/message', listMessageController.handle)
 router.post('/message', createMessageController.handle)
 
+router.get('/category', listCategoriesController.handle)
 router.post('/category', createCategoryController.handle)
 router.put('/category/:id', updateCategoryController.handle)
 router.delete('/category/:id', deleteCategoryController.handle)
-router.get('/category', listCategoriesController.handle)
 
 router.get('/product', listProductController.handle)
 router.post('/product', createProductController.handle)
 router.put('/product/:id', updateProductController.handle)
+router.delete('/product/:id', deleteProductController.handle)
 
 export { router }
