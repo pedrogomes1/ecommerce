@@ -6,6 +6,7 @@ import { CreateCategoryController } from "./controllers/CreateCategoryController
 import { UpdateCategoryController } from "./controllers/UpdateCategoryController";
 import { DeleteCategoryController } from "./controllers/DeleteCategoryController";
 import { CreateProductController } from "./controllers/CreateProductController";
+import { ListProductsController } from "./controllers/ListProductsController";
 
 const router = Router();
 
@@ -18,6 +19,7 @@ const updateCategoryController = new UpdateCategoryController();
 const deleteCategoryController = new DeleteCategoryController();
 
 const createProductController = new CreateProductController();
+const listProductController = new ListProductsController();
 
 
 router.get('/', (request: Request, response: Response) => {
@@ -32,6 +34,7 @@ router.put('/category/:id', updateCategoryController.handle)
 router.delete('/category/:id', deleteCategoryController.handle)
 router.get('/categories', listCategoriesController.handle)
 
+router.get('/product', listProductController.handle)
 router.post('/product', createProductController.handle)
 
 export { router }
