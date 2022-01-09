@@ -9,6 +9,10 @@ class CreateCategoryController {
 
         const newMessage = await createCategoryService.execute({ name });
 
+        if (newMessage instanceof Error) {
+            return response.status(400).json(newMessage.message);
+        }
+
         return response.json(newMessage);
     }
 }
