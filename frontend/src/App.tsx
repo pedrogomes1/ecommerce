@@ -3,6 +3,7 @@ import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import { Header } from './components/Header';
+import { ProductsProvider } from './hooks/products';
 import { MainRoutes } from './routes';
 
 import { theme } from './styles/theme';
@@ -12,8 +13,10 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <CssBaseline />
-        <Header />
-        <MainRoutes />
+        <ProductsProvider>
+          <Header />
+          <MainRoutes />
+        </ProductsProvider>
       </Router>
     </ThemeProvider>
   );
