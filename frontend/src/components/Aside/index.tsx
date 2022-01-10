@@ -35,7 +35,7 @@ const formatCategories = (categories: CategoryProps) => {
 const Aside = () => {
   const [categories, setCategories] = useState<CategoryProps>([]);
 
-  const { products, fetchProducts } = useProducts();
+  const { fetchProducts } = useProducts();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -98,4 +98,4 @@ const Aside = () => {
   );
 };
 
-export default Aside;
+export { Aside };
