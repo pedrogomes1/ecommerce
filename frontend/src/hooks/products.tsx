@@ -22,7 +22,7 @@ type Products = {
 
 type ProductContextData = {
   products: Products[];
-  fetchProducts: (categoryIds: string[]) => Promise<void>;
+  fetchProducts: (categoryIds?: string[], name?: string) => Promise<void>;
 };
 
 export const ProductContext = createContext({} as ProductContextData);
@@ -43,10 +43,11 @@ const formatProductsData = (products: Products[]) => {
 const ProductsProvider = ({ children }: ProductProvider) => {
   const [products, setProducts] = useState<Products[]>([]);
 
-  const fetchProducts = useCallback(async (categoryIds) => {
+  const fetchProducts = useCallback(async (categoryIds, name) => {
     const { data } = await api.get('/product', {
       params: {
         categories: categoryIds,
+        name,
       },
     });
     setProducts(formatProductsData(data));
