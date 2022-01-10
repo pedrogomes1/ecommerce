@@ -1,29 +1,34 @@
 import {
   Typography,
-  Card,
   CardMedia,
   CardContent,
   CardActions,
   Button,
 } from '@mui/material';
 import { AddShoppingCart } from '@mui/icons-material';
+
+import { SkeletonProducts } from '../SkeletonProducts';
 import { useProducts } from '../../hooks/products';
 
 import * as S from './styles';
 
+const skeletonProducts = [1, 2, 3, 4, 5, 6];
+
 const ProductsList = () => {
   const { products } = useProducts();
 
+  const hasProducts = !!products.length;
+
   return (
     <>
-      {!!products.length && (
+      {hasProducts ? (
         <S.Products>
           {products.map((product) => (
             <li key={product.id}>
-              <Card>
+              <S.CardProduct style={{ minWidth: '300px' }}>
                 <CardMedia
                   component="img"
-                  height="250"
+                  height={250}
                   src={product.image_link}
                   alt={product.name}
                 />
@@ -45,10 +50,16 @@ const ProductsList = () => {
                     Adicionar
                   </Button>
                 </CardActions>
-              </Card>
+              </S.CardProduct>
             </li>
           ))}
         </S.Products>
+      ) : (
+        <S.SkeletonContainer>
+          {skeletonProducts.map((item) => (
+            <SkeletonProducts key={item} />
+          ))}
+        </S.SkeletonContainer>
       )}
     </>
   );
