@@ -6,6 +6,7 @@ import { Header } from './components/Header';
 import { ProductsProvider } from './hooks/products';
 import { MainRoutes } from './routes';
 
+import * as S from './styles/app';
 import { theme } from './styles/theme';
 
 const App = () => {
@@ -14,8 +15,10 @@ const App = () => {
       <Router>
         <CssBaseline />
         <ProductsProvider>
-          <Header />
-          <MainRoutes />
+          <S.Container>
+            <Header />
+            <MainRoutes />
+          </S.Container>
         </ProductsProvider>
       </Router>
     </ThemeProvider>
