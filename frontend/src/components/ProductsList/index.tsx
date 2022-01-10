@@ -19,7 +19,7 @@ const ProductsList = () => {
       {!!products.length && (
         <S.Products>
           {products.map((product) => (
-            <S.Product key={product.id}>
+            <li key={product.id}>
               <Card>
                 <CardMedia
                   component="img"
@@ -46,7 +46,7 @@ const ProductsList = () => {
                   </Button>
                 </CardActions>
               </Card>
-            </S.Product>
+            </li>
           ))}
         </S.Products>
       )}
