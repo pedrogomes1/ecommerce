@@ -8,24 +8,37 @@ import {
 import { AddShoppingCart } from '@mui/icons-material';
 
 import { SkeletonProducts } from '../SkeletonProducts';
-import { useProducts } from '../../hooks/products';
+import { RequestStatus, useProducts } from '../../hooks/products';
 
 import * as S from './styles';
 
 const skeletonProducts = [1, 2, 3, 4, 5, 6];
+const { error, loading, empty } = RequestStatus;
 
 const ProductsList = () => {
-  const { products } = useProducts();
-
-  const hasProducts = !!products.length;
+  const { products, status } = useProducts();
 
   return (
     <>
-      {hasProducts ? (
+      {status === loading ? (
+        <S.SkeletonContainer>
+          {skeletonProducts.map((item) => (
+            <SkeletonProducts key={item} />
+          ))}
+        </S.SkeletonContainer>
+      ) : status === empty ? (
+        <Typography variant="h6" margin="auto">
+          Nenhum produto encontrado.
+        </Typography>
+      ) : status === error ? (
+        <Typography variant="h6" margin="auto">
+          Erro do servidor. Tente novamente mais tarde.
+        </Typography>
+      ) : (
         <S.Products>
           {products.map((product) => (
             <li key={product.id}>
-              <S.CardProduct style={{ minWidth: '300px' }}>
+              <S.CardProduct>
                 <CardMedia
                   component="img"
                   height={250}
@@ -54,12 +67,6 @@ const ProductsList = () => {
             </li>
           ))}
         </S.Products>
-      ) : (
-        <S.SkeletonContainer>
-          {skeletonProducts.map((item) => (
-            <SkeletonProducts key={item} />
-          ))}
-        </S.SkeletonContainer>
       )}
     </>
   );
