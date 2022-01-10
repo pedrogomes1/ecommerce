@@ -9,14 +9,22 @@ interface IListProductsService {
 class ListProductsService {
     async execute({ categories, name }: IListProductsService) {
         const productsRepository = getCustomRepository(ProductRepository);
-         
-        const allProducts = await productsRepository.find({
-            where: {
-                category_id: In(categories || []),
-                name: ILike(name ? `${name}%` : "%"),
+
+        const getWhere = () => {
+            if (categories) {
+                return {
+                    category_id: In(categories),
+                    name: ILike(name ? `${name}%` : "%"),
+                }
             }
+            return { name: ILike(name ? `${name}%` : "%") }
+         }
+
+        const allProducts = await productsRepository.find({
+            where: getWhere()
         });
-        return allProducts
+
+        return allProducts;
     }
 }
 
