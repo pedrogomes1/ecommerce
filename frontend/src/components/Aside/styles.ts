@@ -5,7 +5,6 @@ const Aside = styled('aside')(({ theme }) => ({
   flexDirection: 'column',
   minWidth: '250px',
   borderRight: '1px solid #444',
-  marginLeft: theme.spacing(2),
 
   [theme.breakpoints.down('md')]: {
     borderRight: 'none',
