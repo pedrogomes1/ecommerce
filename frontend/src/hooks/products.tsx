@@ -6,6 +6,7 @@ import {
   useContext,
 } from 'react';
 import { api } from '../services/api';
+import { RequestStatus } from '../types';
 import { currencyFormatter } from '../utils/currency';
 
 const MAX_PARCEL_AMOUNT = 10;
@@ -19,14 +20,6 @@ type Products = {
   parcelValue: string;
   image_link: string;
 };
-
-export enum RequestStatus {
-  idle = 'idle',
-  empty = 'empty',
-  loading = 'loading',
-  success = 'success',
-  error = 'error',
-}
 
 type ProductContextData = {
   products: Products[];
