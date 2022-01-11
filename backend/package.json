@@ -2,7 +2,6 @@
   "name": "api-dioshopping",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
