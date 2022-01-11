@@ -53,11 +53,11 @@ const Contact = () => {
     setMessage(event.target.value);
   };
 
-  const handleSubmitMessage = (event: FormEvent) => {
+  const handleSubmitMessage = async (event: FormEvent) => {
     event.preventDefault();
     setStatus(loading);
     try {
-      api.post('/message', { email, message });
+      await api.post('/message', { email, message });
       setEmail('');
       setMessage('');
       fetchMessages();
