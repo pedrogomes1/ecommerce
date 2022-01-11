@@ -44,7 +44,7 @@ const Header = () => {
           ),
         }}
       />
-      <Link to="/contato">
+      <Link to="/contact">
         <Button color="primary">Contato</Button>
       </Link>
     </S.Header>
