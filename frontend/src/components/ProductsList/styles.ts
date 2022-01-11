@@ -12,7 +12,7 @@ const Products = styled('ul')(({ theme }) => ({
 }));
 
 const CardProduct = styled(Card)(() => ({
-  minWidth: '300px',
+  width: '300px',
   transition: 'transform 0.3s ease-in-out',
   '&:hover': {
     transform: 'scale(1.02)',
