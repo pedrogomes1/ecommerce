@@ -99,11 +99,11 @@ const Contact = () => {
         </Button>
       </S.Form>
 
-      {status === 'loading' ? (
+      {status === loading ? (
         <Typography variant="h5">Carregando...</Typography>
-      ) : status === 'error' ? (
+      ) : status === error ? (
         <Typography variant="h5">Erro ao carregar mensagens</Typography>
-      ) : status === 'empty' ? (
+      ) : status === empty ? (
         <Typography variant="h5">Nenhuma mensagem cadstrada</Typography>
       ) : (
         <S.Messages>
