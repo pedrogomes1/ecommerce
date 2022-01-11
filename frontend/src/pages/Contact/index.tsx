@@ -2,8 +2,8 @@ import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { Typography, Button, TextField, Alert } from '@mui/material';
 import toast from 'react-hot-toast';
 
+import { SkeletonMessages } from '../../components/SkeletonMessages';
 import { RequestStatus } from '../../types';
-
 import { api } from '../../services/api';
 
 import * as S from './styles';
@@ -16,6 +16,7 @@ type MessageProps = Array<{
 }>;
 
 const { idle, empty, error, loading, success } = RequestStatus;
+const skeletonMessages = [1, 2, 3];
 
 const formatMessagesData = (messages: MessageProps) => {
   return messages.map((message) => ({
@@ -100,7 +101,7 @@ const Contact = () => {
       </S.Form>
 
       {status === loading ? (
-        <Typography variant="h5">Carregando...</Typography>
+        skeletonMessages.map((item) => <SkeletonMessages key={item} />)
       ) : status === error ? (
         <Typography variant="h5">Erro ao carregar mensagens</Typography>
       ) : status === empty ? (
