@@ -6,6 +6,7 @@ const Header = styled('header')(({ theme }) => ({
   justifyContent: 'space-between',
   paddingTop: theme.spacing(2),
   paddingBottom: theme.spacing(2),
+  marginBottom: '30px',
 
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column',
@@ -13,4 +14,12 @@ const Header = styled('header')(({ theme }) => ({
   },
 }));
 
-export { Header };
+const Logo = styled('img')(() => ({
+  width: '100%',
+  height: '100%',
+  maxWidth: '100px',
+  maxHeight: '70px',
+  cursor: 'pointer',
+}));
+
+export { Header, Logo };
