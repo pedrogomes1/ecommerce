@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { Typography, Button, TextField, Alert } from '@mui/material';
+import { Typography, Button, TextField, Alert, Grow } from '@mui/material';
 import toast from 'react-hot-toast';
 
 import { SkeletonMessages } from '../../components/SkeletonMessages';
@@ -68,6 +68,7 @@ const Contact = () => {
       setEmail('');
       setMessage('');
       fetchMessages();
+      toast.success('Mensagem cadastrada com sucesso!');
     } catch (error) {
       toast.error('Erro ao cadastrar a mensagem!');
     }
@@ -107,19 +108,21 @@ const Contact = () => {
       ) : status === empty ? (
         <Typography variant="h5">Nenhuma mensagem cadstrada</Typography>
       ) : (
-        <S.Messages>
-          {messages.map((message) => (
-            <S.Message key={message.id}>
-              <S.PaperCard>
-                <Typography variant="h6">{message.email}</Typography>
-                <Typography variant="body1">{message.message}</Typography>
-                <Typography variant="caption" marginLeft="auto">
-                  {message.created_at}
-                </Typography>
-              </S.PaperCard>
-            </S.Message>
-          ))}
-        </S.Messages>
+        <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1500}>
+          <S.Messages>
+            {messages.map((message) => (
+              <S.Message key={message.id}>
+                <S.PaperCard>
+                  <Typography variant="h6">{message.email}</Typography>
+                  <Typography variant="body1">{message.message}</Typography>
+                  <Typography variant="caption" marginLeft="auto">
+                    {message.created_at}
+                  </Typography>
+                </S.PaperCard>
+              </S.Message>
+            ))}
+          </S.Messages>
+        </Grow>
       )}
     </S.Container>
   );
