@@ -35,6 +35,11 @@ const PaperCard = styled(Paper)(() => ({
   flexDirection: 'column',
   gap: '30px',
   padding: '20px',
+
+  transition: 'transform 0.3s ease-in-out',
+  '&:hover': {
+    transform: 'scale(1.02)',
+  },
 }));
 
 export { Container, Form, Messages, Message, PaperCard };
