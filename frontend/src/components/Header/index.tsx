@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Typography, Button, TextField, InputAdornment } from '@mui/material';
 import Search from '@mui/icons-material/Search';
+import { Mail } from '@mui/icons-material';
 
 import { useProducts } from '../../hooks/products';
 
@@ -45,7 +46,9 @@ const Header = () => {
         }}
       />
       <Link to="/contact">
-        <Button color="primary">Contato</Button>
+        <Button variant="outlined" color="primary" startIcon={<Mail />}>
+          Contato
+        </Button>
       </Link>
     </S.Header>
   );
