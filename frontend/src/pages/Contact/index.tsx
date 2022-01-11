@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { Typography, Button, TextField } from '@mui/material';
+import { Typography, Button, TextField, Alert } from '@mui/material';
 
 import { RequestStatus } from '../../types';
 
@@ -28,6 +28,8 @@ const Contact = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<MessageProps>([]);
   const [status, setStatus] = useState<RequestStatus>(idle);
+  const [shoudDisplayErrorFormMessage, setShouldDisplayErrorFormMessage] =
+    useState(false);
 
   const fetchMessages = async () => {
     setStatus(loading);
@@ -55,6 +57,10 @@ const Contact = () => {
 
   const handleSubmitMessage = async (event: FormEvent) => {
     event.preventDefault();
+
+    if (!email || !message) {
+      return setShouldDisplayErrorFormMessage(true);
+    }
     setStatus(loading);
     try {
       await api.post('/message', { email, message });
@@ -77,13 +83,17 @@ const Contact = () => {
           onChange={handleChangeEmail}
         />
         <TextField
-          label="Message"
+          label="Mensagem"
           multiline
           rows={4}
           value={message}
           onChange={handleChangeMessage}
         />
-
+        {shoudDisplayErrorFormMessage && (
+          <Alert variant="outlined" severity="error">
+            Por favor, preencha o nome e a mensagem desejada.
+          </Alert>
+        )}
         <Button variant="contained" color="primary" type="submit">
           Enviar
         </Button>
