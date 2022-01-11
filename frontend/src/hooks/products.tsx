@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import {
   useState,
   useCallback,
@@ -61,6 +62,7 @@ const ProductsProvider = ({ children }: ProductProvider) => {
       setStatus(data.length ? success : empty);
     } catch (err) {
       setStatus(error);
+      toast.error('Erro ao buscar os produtos');
     }
   }, []);
 

@@ -1,4 +1,5 @@
 import { ChangeEvent, useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import {
   Typography,
   FormControl,
@@ -43,7 +44,7 @@ const Aside = () => {
         const { data } = await api.get('/category');
         setCategories(formatCategories(data));
       } catch (error) {
-        console.log(error);
+        toast.error('Erro ao buscar as categorias');
       }
     };
     fetchCategories();

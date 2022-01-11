@@ -1,5 +1,6 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { Typography, Button, TextField, Alert } from '@mui/material';
+import toast from 'react-hot-toast';
 
 import { RequestStatus } from '../../types';
 
@@ -39,7 +40,6 @@ const Contact = () => {
       setStatus(data.length ? success : empty);
     } catch (err) {
       setStatus(error);
-      console.log(error);
     }
   };
 
@@ -68,7 +68,7 @@ const Contact = () => {
       setMessage('');
       fetchMessages();
     } catch (error) {
-      console.log(error);
+      toast.error('Erro ao cadastrar a mensagem!');
     }
   };
 

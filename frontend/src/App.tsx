@@ -1,4 +1,5 @@
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
@@ -14,6 +15,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Router>
         <CssBaseline />
+        <Toaster position="top-right" />
         <ProductsProvider>
           <S.Container>
             <Header />
