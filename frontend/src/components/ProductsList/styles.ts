@@ -1,11 +1,14 @@
 import { Card } from '@mui/material';
 import styled from '@mui/material/styles/styled';
 
-const Products = styled('ul')(() => ({
-  listStyle: 'none',
+const Products = styled('ul')(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
   gap: '20px',
+  listStyle: 'none',
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'center',
+  },
 }));
 
 const CardProduct = styled(Card)(() => ({

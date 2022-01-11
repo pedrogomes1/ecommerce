@@ -6,6 +6,11 @@ const Header = styled('header')(({ theme }) => ({
   justifyContent: 'space-between',
   paddingTop: theme.spacing(2),
   paddingBottom: theme.spacing(2),
+
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+    gap: '25px',
+  },
 }));
 
 export { Header };

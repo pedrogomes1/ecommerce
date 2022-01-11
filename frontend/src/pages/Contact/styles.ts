@@ -1,9 +1,12 @@
 import styled from '@mui/material/styles/styled';
 import { Paper } from '@mui/material';
 
-const Container = styled('div')(() => ({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   maxWidth: '50%',
+  [theme.breakpoints.down('md')]: {
+    maxWidth: '100%',
+  },
   flexDirection: 'column',
   gap: '15px',
 }));
