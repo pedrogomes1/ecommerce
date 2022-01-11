@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Typography, Button, TextField, Paper } from '@mui/material';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { Typography, Button, TextField } from '@mui/material';
 
 import { RequestStatus } from '../../types';
 
@@ -11,55 +11,83 @@ type MessageProps = Array<{
   id: string;
   created_at: string;
   message: string;
-  emaiL: string;
+  email: string;
 }>;
 
 const { idle, empty, error, loading, success } = RequestStatus;
 
+const formatMessagesData = (messages: MessageProps) => {
+  return messages.map((message) => ({
+    ...message,
+    created_at: new Date(message.created_at).toLocaleDateString(),
+  }));
+};
+
 const Contact = () => {
-  const [author, setAuthor] = useState('');
-  const [content, setContent] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<MessageProps>([]);
   const [status, setStatus] = useState<RequestStatus>(idle);
 
+  const fetchMessages = async () => {
+    setStatus(loading);
+    try {
+      const { data } = await api.get('/message');
+      setMessages(formatMessagesData(data));
+      setStatus(data.length ? success : empty);
+    } catch (err) {
+      setStatus(error);
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const fetchMessages = async () => {
-      setStatus(loading);
-      try {
-        const { data } = await api.get('/message');
-        setMessages(data);
-        setStatus(data.length ? success : empty);
-      } catch (err) {
-        setStatus(error);
-        console.log(error);
-      }
-    };
     fetchMessages();
   }, []);
+
+  const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const handleChangeMessage = (event: ChangeEvent<HTMLInputElement>) => {
+    setMessage(event.target.value);
+  };
+
+  const handleSubmitMessage = (event: FormEvent) => {
+    event.preventDefault();
+    setStatus(loading);
+    try {
+      api.post('/message', { email, message });
+      setEmail('');
+      setMessage('');
+      fetchMessages();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <S.Container>
       <Typography variant="h5">Deixe-nos uma mensagem!</Typography>
-      <TextField
-        label="Name"
-        value={author}
-        onChange={(event) => {
-          setAuthor(event.target.value);
-        }}
-      />
-      <TextField
-        label="Message"
-        multiline
-        rows={4}
-        value={content}
-        onChange={(event) => {
-          setContent(event.target.value);
-        }}
-      />
+      <S.Form onSubmit={handleSubmitMessage}>
+        <TextField
+          label="E-mail"
+          type="email"
+          value={email}
+          onChange={handleChangeEmail}
+        />
+        <TextField
+          label="Message"
+          multiline
+          rows={4}
+          value={message}
+          onChange={handleChangeMessage}
+        />
 
-      <Button variant="contained" color="primary">
-        Enviar
-      </Button>
+        <Button variant="contained" color="primary" type="submit">
+          Enviar
+        </Button>
+      </S.Form>
 
       {status === 'loading' ? (
         <Typography variant="h5">Carregando...</Typography>
@@ -68,13 +96,19 @@ const Contact = () => {
       ) : status === 'empty' ? (
         <Typography variant="h5">Nenhuma mensagem cadstrada</Typography>
       ) : (
-        <ul>
+        <S.Messages>
           {messages.map((message) => (
-            <li key={message.id}>
-              <Paper>{message.message}</Paper>
-            </li>
+            <S.Message key={message.id}>
+              <S.PaperCard>
+                <Typography variant="h6">{message.email}</Typography>
+                <Typography variant="body1">{message.message}</Typography>
+                <Typography variant="caption" marginLeft="auto">
+                  {message.created_at}
+                </Typography>
+              </S.PaperCard>
+            </S.Message>
           ))}
-        </ul>
+        </S.Messages>
       )}
     </S.Container>
   );
