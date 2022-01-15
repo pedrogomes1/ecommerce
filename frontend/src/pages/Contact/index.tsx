@@ -37,8 +37,11 @@ const Contact = () => {
     setStatus(loading);
     try {
       const { data } = await api.get('/message');
+
+      const hasMessages = !!data.length;
+
       setMessages(formatMessagesData(data));
-      setStatus(data.length ? success : empty);
+      setStatus(hasMessages ? success : empty);
     } catch (err) {
       setStatus(error);
     }
