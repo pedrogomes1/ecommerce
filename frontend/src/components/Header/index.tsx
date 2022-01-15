@@ -6,7 +6,7 @@ import { Mail } from '@mui/icons-material';
 
 import logo from '../../assets/logo.webp';
 
-import { useProducts } from '../../hooks/products';
+import { useProducts } from '../../contexts/products';
 
 import * as S from './styles';
 

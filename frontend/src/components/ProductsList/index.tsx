@@ -8,7 +8,7 @@ import {
 import { AddShoppingCart } from '@mui/icons-material';
 
 import { SkeletonProducts } from '../SkeletonProducts';
-import { useProducts } from '../../hooks/products';
+import { useProducts } from '../../contexts/products';
 import { RequestStatus } from '../../types';
 
 import * as S from './styles';

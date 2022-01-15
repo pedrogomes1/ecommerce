@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import {
   useState,
   useCallback,
@@ -6,6 +5,8 @@ import {
   ReactNode,
   useContext,
 } from 'react';
+import toast from 'react-hot-toast';
+
 import { api } from '../services/api';
 import { RequestStatus } from '../types';
 import { currencyFormatter } from '../utils/currency';
@@ -58,8 +59,9 @@ const ProductsProvider = ({ children }: ProductProvider) => {
           name,
         },
       });
+      const hasProducts = !!data.length;
       setProducts(formatProductsData(data));
-      setStatus(data.length ? success : empty);
+      setStatus(hasProducts ? success : empty);
     } catch (err) {
       setStatus(error);
       toast.error('Erro ao buscar os produtos');

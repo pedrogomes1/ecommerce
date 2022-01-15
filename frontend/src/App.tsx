@@ -4,7 +4,7 @@ import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import { Header } from './components/Header';
-import { ProductsProvider } from './hooks/products';
+import { ProductsProvider } from './contexts/products';
 import { MainRoutes } from './routes';
 
 import * as S from './styles/app';

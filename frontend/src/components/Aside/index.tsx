@@ -7,7 +7,7 @@ import {
   FormControlLabel,
 } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
-import { useProducts } from '../../hooks/products';
+import { useProducts } from '../../contexts/products';
 
 import * as S from './styles';
 import { api } from '../../services/api';
