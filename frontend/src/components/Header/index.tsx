@@ -1,16 +1,15 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, TextField, InputAdornment } from '@mui/material';
-import Search from '@mui/icons-material/Search';
-import { Mail } from '@mui/icons-material';
-
-import logo from '../../assets/logo.webp';
+import { Mail, Search } from '@mui/icons-material';
 
 import { useProducts } from '../../contexts/products';
 
 import * as S from './styles';
 
 const MILLISECONDS_TIME = 800;
+const LOGO_URL =
+  'https://res.cloudinary.com/dohrhcaly/image/upload/v1642641776/ecommerce/logo_k4vauo.webp';
 
 const Header = () => {
   const [productName, setProductName] = useState('');
@@ -39,7 +38,7 @@ const Header = () => {
 
   return (
     <S.Header>
-      <S.Logo src={logo} alt="App logo" onClick={handleNavigateToHome} />
+      <S.Logo src={LOGO_URL} alt="App logo" onClick={handleNavigateToHome} />
       <TextField
         label="Nome do produto"
         variant="outlined"
