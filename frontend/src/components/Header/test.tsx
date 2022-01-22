@@ -5,10 +5,18 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Header } from '.';
 
 const mockedUsedNavigate = jest.fn();
+const mockedFetchProducts = jest.fn();
 
 jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as any),
+  ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedUsedNavigate,
+}));
+
+jest.mock('../../contexts/products', () => ({
+  ...jest.requireActual('../../contexts/products'),
+  useProducts: jest.fn(() => ({
+    fetchProducts: mockedFetchProducts,
+  })),
 }));
 
 describe('Header component', () => {
@@ -47,6 +55,20 @@ describe('Header component', () => {
 
     fireEvent.change(input, { target: { value: 'Tenis' } });
     expect(input.value).toBe('Tenis');
+  });
+
+  it('Call of the fetchProducts function when all value typed in the input is deleted', () => {
+    const container = render(<Header />, {
+      wrapper: MemoryRouter,
+    });
+
+    const input = container.getByLabelText(
+      'Nome do produto',
+    ) as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: 'Tenis' } });
+    fireEvent.change(input, { target: { value: '' } });
+    expect(mockedFetchProducts).toBeCalled();
   });
 
   it('Render a link button to go contact page', () => {
