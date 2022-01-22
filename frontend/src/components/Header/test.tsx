@@ -1,14 +1,33 @@
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { Header } from '.';
 
-describe('<TextField />', () => {
+const mockedUsedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...(jest.requireActual('react-router-dom') as any),
+  useNavigate: () => mockedUsedNavigate,
+}));
+
+describe('Header component', () => {
   it('Render a logo image from app', () => {
     render(<Header />, {
       wrapper: MemoryRouter,
     });
     expect(screen.getByRole('img', { name: /App logo/i })).toBeInTheDocument();
+  });
+
+  it('Navigate to home page when logo image is clicked', async () => {
+    render(<Header />, {
+      wrapper: MemoryRouter,
+    });
+
+    const logo = screen.getByRole('img', { name: /App logo/i });
+    userEvent.click(logo);
+
+    expect(mockedUsedNavigate).toHaveBeenCalledWith('/');
   });
 
   it('Render a text field input to search products by name', () => {
