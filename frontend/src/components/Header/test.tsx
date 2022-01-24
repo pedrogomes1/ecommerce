@@ -20,14 +20,14 @@ jest.mock('../../contexts/products', () => ({
 }));
 
 describe('Header component', () => {
-  it('Render a logo image from app', () => {
+  it('should render a logo image from app', () => {
     render(<Header />, {
       wrapper: MemoryRouter,
     });
     expect(screen.getByRole('img', { name: /App logo/i })).toBeInTheDocument();
   });
 
-  it('Navigate to home page when logo image is clicked', async () => {
+  it('should navigate to home page when logo image is clicked', async () => {
     render(<Header />, {
       wrapper: MemoryRouter,
     });
@@ -38,14 +38,14 @@ describe('Header component', () => {
     expect(mockedUsedNavigate).toHaveBeenCalledWith('/');
   });
 
-  it('Render a text field input to search products by name', () => {
+  it('should render a text field input to search products by name', () => {
     render(<Header />, {
       wrapper: MemoryRouter,
     });
     expect(screen.queryByLabelText('Nome do produto')).toBeInTheDocument();
   });
 
-  it('Change its value when there is value entered', () => {
+  it('should change its value when there is value entered', () => {
     const container = render(<Header />, {
       wrapper: MemoryRouter,
     });
@@ -57,7 +57,7 @@ describe('Header component', () => {
     expect(input.value).toBe('Tenis');
   });
 
-  it('Debounce method when new input value is entered with 800ms after typing', async () => {
+  it('should debounce method when new input value is entered with 800ms after typing', async () => {
     jest.useFakeTimers();
     const container = render(<Header />, {
       wrapper: MemoryRouter,
@@ -78,7 +78,7 @@ describe('Header component', () => {
     jest.clearAllTimers();
   });
 
-  it('Call of the fetchProducts function when all value typed in the input is deleted', () => {
+  it('should call of the fetchProducts function when all value typed in the input is deleted', () => {
     const container = render(<Header />, {
       wrapper: MemoryRouter,
     });
@@ -92,7 +92,7 @@ describe('Header component', () => {
     expect(mockedFetchProducts).toBeCalled();
   });
 
-  it('Render a link button to go contact page', () => {
+  it('should render a link button to go contact page', () => {
     render(<Header />, {
       wrapper: MemoryRouter,
     });
