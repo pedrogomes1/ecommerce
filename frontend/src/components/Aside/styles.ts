@@ -1,4 +1,4 @@
-import styled from '@mui/material/styles/styled';
+import { styled } from '@mui/material/styles';
 
 const Aside = styled('aside')(({ theme }) => ({
   display: 'flex',
