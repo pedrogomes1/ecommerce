@@ -1,8 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
-import { useProducts } from '../../contexts/products';
 
 import { Header } from '.';
 
@@ -64,22 +62,18 @@ describe('Header component', () => {
     const container = render(<Header />, {
       wrapper: MemoryRouter,
     });
-    const {
-      result: { current },
-    } = renderHook(() => useProducts());
 
     const MILLISECONDS_TIME = 800;
-    const fetchProducts = current.fetchProducts;
 
     const input = container.getByLabelText(
       'Nome do produto',
     ) as HTMLInputElement;
 
     userEvent.type(input, 'C');
-    expect(fetchProducts).not.toHaveBeenCalled();
+    expect(mockedFetchProducts).not.toHaveBeenCalled();
 
     jest.advanceTimersByTime(MILLISECONDS_TIME);
-    expect(fetchProducts).toHaveBeenCalled();
+    expect(mockedFetchProducts).toHaveBeenCalled();
 
     jest.clearAllTimers();
   });
