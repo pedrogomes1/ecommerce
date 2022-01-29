@@ -75,26 +75,22 @@ const Aside = () => {
         Categorias
       </Typography>
 
-      {!!categories.length && (
-        <FormControl component="fieldset" variant="standard">
-          <FormGroup>
-            {categories.map((category) => (
-              <FormControlLabel
-                key={category.id}
-                control={
-                  <Checkbox
-                    onChange={(event) =>
-                      handleCheckboxChange(event, category.id)
-                    }
-                    name={category.id}
-                  />
-                }
-                label={category.name}
-              />
-            ))}
-          </FormGroup>
-        </FormControl>
-      )}
+      <FormControl component="fieldset" variant="standard">
+        <FormGroup>
+          {categories.map((category) => (
+            <FormControlLabel
+              key={category.id}
+              control={
+                <Checkbox
+                  onChange={(event) => handleCheckboxChange(event, category.id)}
+                  name={category.id}
+                />
+              }
+              label={category.name}
+            />
+          ))}
+        </FormGroup>
+      </FormControl>
     </S.Aside>
   );
 };
