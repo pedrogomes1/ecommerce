@@ -38,4 +38,13 @@ describe('Contact page', () => {
     expect(emailInput.value).toBe('johndoe@example.com');
     expect(messageInput.value).toBe('Hello World');
   });
+
+  it('should display error alert when form values ​​are not filled and submit is clicked', () => {
+    render(<Contact />, { wrapper: MemoryRouter });
+
+    const submitButton = screen.getByRole('button', { name: /Enviar/i });
+    fireEvent.click(submitButton);
+
+    expect(screen.getByRole('alert')).toBeInTheDocument();
+  });
 });
