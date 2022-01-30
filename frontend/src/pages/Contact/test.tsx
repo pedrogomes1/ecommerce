@@ -1,13 +1,6 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Contact } from '.';
-
-const mockedFetchMessages = jest.fn(() => Promise.resolve(true));
-
-jest.mock('axios', () => ({
-  ...jest.requireActual('axios'),
-  get: mockedFetchMessages,
-}));
 
 jest.mock('../../contexts/products', () => ({
   useProducts: jest.fn(() => ({
@@ -46,5 +39,21 @@ describe('Contact page', () => {
     fireEvent.click(submitButton);
 
     expect(screen.getByRole('alert')).toBeInTheDocument();
+  });
+
+  it('should display list of registered messages', async () => {
+    render(<Contact />, { wrapper: MemoryRouter });
+
+    await waitFor(() => {
+      const list = screen.getByRole('list');
+      const email = screen.getAllByRole('heading')[0];
+      const message = screen.getAllByTestId('test-message')[0];
+      const date = screen.getAllByTestId('test-date')[0];
+
+      expect(list).toBeInTheDocument();
+      expect(email).toBeInTheDocument();
+      expect(message).toBeInTheDocument();
+      expect(date).toBeInTheDocument();
+    });
   });
 });
