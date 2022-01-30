@@ -1,5 +1,5 @@
 import { Card } from '@mui/material';
-import styled from '@mui/material/styles/styled';
+import { styled } from '@mui/material/styles';
 
 const Products = styled('ul')(({ theme }) => ({
   display: 'flex',
