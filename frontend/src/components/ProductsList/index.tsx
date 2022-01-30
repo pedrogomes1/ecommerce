@@ -13,7 +13,7 @@ import { RequestStatus } from '../../types';
 
 import * as S from './styles';
 
-const skeletonProducts = [1, 2, 3, 4, 5, 6];
+const skeletonProducts = Array.from({ length: 6 }, (_, index) => index);
 const { error, loading, empty } = RequestStatus;
 
 const ProductsList = () => {
