@@ -7,7 +7,7 @@ const mockedUsedNavigate = jest.fn();
 
 const { error, loading, empty, success, idle } = RequestStatus;
 
-const status = idle;
+let status = idle;
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -21,4 +21,11 @@ jest.mock('../../contexts/products', () => ({
   })),
 }));
 
-describe('ProductsList component', () => {});
+describe('ProductsList component', () => {
+  it('should skeleton list when status is loading', () => {
+    status = loading;
+    render(<ProductsList />, { wrapper: MemoryRouter });
+
+    expect(screen.getAllByRole('list')).toHaveLength(6);
+  });
+});
