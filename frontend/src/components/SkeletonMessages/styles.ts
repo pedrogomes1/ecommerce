@@ -1,5 +1,5 @@
 import { Card, Skeleton } from '@mui/material';
-import styled from '@mui/material/styles/styled';
+import { styled } from '@mui/material/styles';
 
 const CardMessage = styled(Card)(() => ({
   display: 'flex',

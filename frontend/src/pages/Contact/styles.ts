@@ -1,4 +1,4 @@
-import styled from '@mui/material/styles/styled';
+import { styled } from '@mui/material/styles';
 import { Paper } from '@mui/material';
 
 const Container = styled('div')(({ theme }) => ({
