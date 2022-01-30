@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { Contact } from '.';
 
 const mockedTest = jest.fn(() => Promise.resolve(true));
@@ -14,4 +15,12 @@ jest.mock('../../contexts/products', () => ({
   })),
 }));
 
-describe('Contact page', () => {});
+describe('Contact page', () => {
+  it('should render form elements', () => {
+    render(<Contact />, { wrapper: MemoryRouter });
+
+    expect(screen.getByLabelText(/E-mail/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Mensagem/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Enviar/i })).toBeInTheDocument();
+  });
+});
