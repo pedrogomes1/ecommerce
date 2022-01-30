@@ -16,7 +16,7 @@ type MessageProps = Array<{
 }>;
 
 const { idle, empty, error, loading, success } = RequestStatus;
-const skeletonMessages = [1, 2, 3];
+const skeletonMessages = Array.from({ length: 3 }, (_, index) => index);
 
 const formatMessagesData = (messages: MessageProps) => {
   return messages.map((message) => ({
