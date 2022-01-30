@@ -113,13 +113,19 @@ const Contact = () => {
       ) : (
         <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1500}>
           <S.Messages>
-            {messages.map((message) => (
-              <S.Message key={message.id}>
+            {messages.map(({ id, email, message, created_at }) => (
+              <S.Message key={id}>
                 <S.PaperCard>
-                  <Typography variant="h6">{message.email}</Typography>
-                  <Typography variant="body1">{message.message}</Typography>
-                  <Typography variant="caption" marginLeft="auto">
-                    {message.created_at}
+                  <Typography variant="h6">{email}</Typography>
+                  <Typography variant="body1" data-testid="test-message">
+                    {message}
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    data-testid="test-date"
+                    marginLeft="auto"
+                  >
+                    {created_at}
                   </Typography>
                 </S.PaperCard>
               </S.Message>
