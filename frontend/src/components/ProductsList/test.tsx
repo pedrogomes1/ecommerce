@@ -28,4 +28,13 @@ describe('ProductsList component', () => {
 
     expect(screen.getAllByRole('list')).toHaveLength(6);
   });
+
+  it('should render no products found message when status is empty', () => {
+    status = empty;
+    render(<ProductsList />, { wrapper: MemoryRouter });
+
+    expect(
+      screen.getByRole('heading', { name: /Nenhum produto encontrado/i }),
+    ).toBeInTheDocument();
+  });
 });
