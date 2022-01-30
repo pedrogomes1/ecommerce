@@ -37,4 +37,15 @@ describe('ProductsList component', () => {
       screen.getByRole('heading', { name: /Nenhum produto encontrado/i }),
     ).toBeInTheDocument();
   });
+
+  it('should render Server Error message. Please try again later when status is empty', () => {
+    status = error;
+    render(<ProductsList />, { wrapper: MemoryRouter });
+
+    expect(
+      screen.getByRole('heading', {
+        name: /Erro do servidor. Tente novamente mais tarde/i,
+      }),
+    ).toBeInTheDocument();
+  });
 });
