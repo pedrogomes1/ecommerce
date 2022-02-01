@@ -117,12 +117,12 @@ const Contact = () => {
               <S.Message key={id}>
                 <S.PaperCard>
                   <Typography variant="h6">{email}</Typography>
-                  <Typography variant="body1" data-testid="test-message">
+                  <Typography variant="body1" data-testid="message">
                     {message}
                   </Typography>
                   <Typography
                     variant="caption"
-                    data-testid="test-date"
+                    data-testid="date"
                     marginLeft="auto"
                   >
                     {created_at}
