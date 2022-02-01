@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 import { currencyFormatter } from '../../utils/currency';
 import { ProductsList } from '.';
 
-const mockedUsedNavigate = jest.fn();
 const MAX_PARCEL_AMOUNT = 10;
 
 const { error, loading, empty, success, idle } = RequestStatus;
@@ -43,11 +42,6 @@ const products = [
 ];
 
 let status = idle;
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockedUsedNavigate,
-}));
 
 jest.mock('../../contexts/products', () => ({
   useProducts: jest.fn(() => ({
