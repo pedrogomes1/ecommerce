@@ -78,12 +78,12 @@ describe('ProductsList component', () => {
     ).toBeInTheDocument();
   });
 
-  it('should render products list when status is success', () => {
+  it('should render products list when status is success', async () => {
     status = success;
     render(<ProductsList />, { wrapper: MemoryRouter });
 
-    expect(screen.getByRole('list')).toBeInTheDocument();
-    expect(screen.getAllByRole('listitem')).toHaveLength(3);
+    expect(await screen.findByRole('list')).toBeInTheDocument();
+    expect(await screen.findAllByRole('listitem')).toHaveLength(3);
 
     expect(screen.getByText(/Camiseta Corinthians 2020/i)).toBeInTheDocument();
     expect(screen.getByText('R$ 100,00')).toBeInTheDocument();
