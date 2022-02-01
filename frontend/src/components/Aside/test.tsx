@@ -1,20 +1,6 @@
 import { MemoryRouter } from 'react-router-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { Aside } from '.';
-
-const mockedUsedNavigate = jest.fn();
-
-const mockedTest = jest.fn(() => Promise.resolve(true));
-
-jest.mock('axios', () => ({
-  ...jest.requireActual('axios'),
-  get: mockedTest,
-}));
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockedUsedNavigate,
-}));
 
 jest.mock('../../contexts/products', () => ({
   useProducts: jest.fn(() => ({
@@ -33,15 +19,15 @@ describe('Aside component', () => {
   it('must set checkbox to true when clickeds', async () => {
     render(<Aside />, { wrapper: MemoryRouter });
 
-    const checkboxInputElement = await screen.findByRole('checkbox', {
-      name: /camisetas/i,
-    });
+    const checkboxInputElement = await screen.findAllByRole('checkbox');
 
-    expect(checkboxInputElement).toBeInTheDocument();
-    expect(checkboxInputElement).not.toBeChecked();
+    const firstCheckbox = checkboxInputElement[0];
 
-    fireEvent.click(checkboxInputElement);
+    expect(firstCheckbox).toBeInTheDocument();
+    expect(firstCheckbox).not.toBeChecked();
 
-    expect(checkboxInputElement).toBeChecked();
+    fireEvent.click(firstCheckbox);
+
+    expect(firstCheckbox).toBeChecked();
   });
 });
