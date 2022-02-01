@@ -67,7 +67,7 @@ describe('ProductsList component', () => {
     ).toBeInTheDocument();
   });
 
-  it('should render Server Error message. Please try again later when status is empty', () => {
+  it('should render server error message when status is empty', () => {
     status = error;
     render(<ProductsList />, { wrapper: MemoryRouter });
 
