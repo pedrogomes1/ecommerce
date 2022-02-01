@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Contact } from '.';
 
@@ -44,16 +44,18 @@ describe('Contact page', () => {
   it('should display list of registered messages', async () => {
     render(<Contact />, { wrapper: MemoryRouter });
 
-    await waitFor(() => {
-      const list = screen.getByRole('list');
-      const email = screen.getAllByRole('heading')[0];
-      const message = screen.getAllByTestId('test-message')[0];
-      const date = screen.getAllByTestId('test-date')[0];
+    const list = await screen.findByRole('list');
+    const email = await screen.findAllByRole('heading');
+    const message = await screen.findAllByTestId('message');
+    const date = await screen.findAllByTestId('date');
 
-      expect(list).toBeInTheDocument();
-      expect(email).toBeInTheDocument();
-      expect(message).toBeInTheDocument();
-      expect(date).toBeInTheDocument();
-    });
+    const firsEmailText = email[0];
+    const firstMessageText = message[0];
+    const firstDateText = date[0];
+
+    expect(list).toBeInTheDocument();
+    expect(firsEmailText).toBeInTheDocument();
+    expect(firstMessageText).toBeInTheDocument();
+    expect(firstDateText).toBeInTheDocument();
   });
 });
