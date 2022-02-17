@@ -1,5 +1,4 @@
-import { MemoryRouter } from 'react-router-dom';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Aside } from '.';
 
 jest.mock('../../contexts/products', () => ({
@@ -10,14 +9,14 @@ jest.mock('../../contexts/products', () => ({
 
 describe('Aside component', () => {
   it('should render category title', () => {
-    render(<Aside />, { wrapper: MemoryRouter });
+    render(<Aside />);
     expect(
       screen.getByRole('heading', { name: /Categorias/i }),
     ).toBeInTheDocument();
   });
 
   it('must set checkbox to true when clickeds', async () => {
-    render(<Aside />, { wrapper: MemoryRouter });
+    render(<Aside />);
 
     const checkboxInputElement = await screen.findAllByRole('checkbox');
 
