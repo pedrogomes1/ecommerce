@@ -9,8 +9,8 @@ jest.mock('../../contexts/products', () => ({
 }));
 
 describe('Contact page', () => {
-  it('should render form elements', () => {
-    render(<Contact />, { wrapper: MemoryRouter });
+  it('should render form elements', async () => {
+    render(<Contact />);
 
     expect(screen.getByLabelText(/E-mail/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Mensagem/i)).toBeInTheDocument();
@@ -18,7 +18,7 @@ describe('Contact page', () => {
   });
 
   it('should update input values ​​when they change', async () => {
-    render(<Contact />, { wrapper: MemoryRouter });
+    render(<Contact />);
 
     const emailInput = screen.getByLabelText(/E-mail/i) as HTMLInputElement;
     const messageInput = screen.getByLabelText(/Mensagem/i) as HTMLInputElement;
@@ -33,7 +33,7 @@ describe('Contact page', () => {
   });
 
   it('should display error alert when form values ​​are not filled and submit is clicked', () => {
-    render(<Contact />, { wrapper: MemoryRouter });
+    render(<Contact />);
 
     const submitButton = screen.getByRole('button', { name: /Enviar/i });
     fireEvent.click(submitButton);
