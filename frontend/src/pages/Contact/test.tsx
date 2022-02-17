@@ -34,20 +34,14 @@ describe('Contact page', () => {
   });
 
   it('should display list of registered messages', async () => {
-    render(<Contact />, { wrapper: MemoryRouter });
+    render(<Contact />);
 
-    const list = await screen.findByRole('list');
-    const email = await screen.findAllByRole('heading');
-    const message = await screen.findAllByTestId('message');
-    const date = await screen.findAllByTestId('date');
+    const listMessages = await screen.findByRole('list');
+    const email = await screen.findByText('johndoe@hotmail.com');
+    const message = await screen.findByText('Os produtos são ótimos!');
 
-    const firsEmailText = email[0];
-    const firstMessageText = message[0];
-    const firstDateText = date[0];
-
-    expect(list).toBeInTheDocument();
-    expect(firsEmailText).toBeInTheDocument();
-    expect(firstMessageText).toBeInTheDocument();
-    expect(firstDateText).toBeInTheDocument();
+    expect(listMessages).toBeInTheDocument();
+    expect(email).toBeInTheDocument();
+    expect(message).toBeInTheDocument();
   });
 });
