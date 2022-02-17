@@ -3,7 +3,6 @@ import { Toaster } from 'react-hot-toast';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 
-import { Header } from './components/Header';
 import { ProductsProvider } from './contexts/products';
 import { MainRoutes } from './routes';
 
@@ -18,7 +17,6 @@ const App = () => {
         <Toaster position="top-right" />
         <ProductsProvider>
           <S.Container>
-            <Header />
             <MainRoutes />
           </S.Container>
         </ProductsProvider>
