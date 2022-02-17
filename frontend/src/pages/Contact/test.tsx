@@ -17,10 +17,8 @@ describe('Contact page', () => {
     const emailInput = screen.getByLabelText(/E-mail/i) as HTMLInputElement;
     const messageInput = screen.getByLabelText(/Mensagem/i) as HTMLInputElement;
 
-    fireEvent.change(emailInput, {
-      target: { value: 'johndoe@example.com' },
-    });
-    fireEvent.change(messageInput, { target: { value: 'Hello World' } });
+    userEvent.type(emailInput, 'johndoe@example.com');
+    userEvent.type(messageInput, 'Hello World');
 
     expect(emailInput.value).toBe('johndoe@example.com');
     expect(messageInput.value).toBe('Hello World');
@@ -30,7 +28,7 @@ describe('Contact page', () => {
     render(<Contact />);
 
     const submitButton = screen.getByRole('button', { name: /Enviar/i });
-    fireEvent.click(submitButton);
+    userEvent.click(submitButton);
 
     expect(screen.getByRole('alert')).toBeInTheDocument();
   });
