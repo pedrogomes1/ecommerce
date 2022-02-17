@@ -1,9 +1,11 @@
+import { Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { ArrowBack } from '@mui/icons-material';
 
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   maxWidth: '50%',
+  margin: '0 auto',
   [theme.breakpoints.down('md')]: {
     maxWidth: '100%',
   },
