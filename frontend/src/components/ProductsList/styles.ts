@@ -8,6 +8,7 @@ const Products = styled('ul')(({ theme }) => ({
   listStyle: 'none',
   [theme.breakpoints.down('sm')]: {
     justifyContent: 'center',
+    padding: 0,
   },
 }));
 
