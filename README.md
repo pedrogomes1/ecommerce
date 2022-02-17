@@ -6,6 +6,7 @@ Application consists of a small ecommerce simulation with product listing, categ
 
 - [ReactJS](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - [Node](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
 - [Material UI](https://mui.com/pt/)
