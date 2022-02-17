@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { Paper } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
 
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -42,4 +42,12 @@ const PaperCard = styled(Paper)(() => ({
   },
 }));
 
-export { Container, Form, Messages, Message, PaperCard };
+const IconArrowBack = styled(ArrowBack)(() => ({
+  cursor: 'pointer',
+  transition: 'transform 0.3s ease-in-out',
+  '&:hover': {
+    transform: 'translateX(-5px)',
+  },
+}));
+
+export { Container, Form, Messages, Message, PaperCard, IconArrowBack };

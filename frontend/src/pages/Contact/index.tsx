@@ -1,4 +1,5 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Typography, Button, TextField, Alert, Grow } from '@mui/material';
 import toast from 'react-hot-toast';
 
@@ -32,6 +33,8 @@ const Contact = () => {
   const [status, setStatus] = useState<RequestStatus>(idle);
   const [shoudDisplayErrorFormMessage, setShouldDisplayErrorFormMessage] =
     useState(false);
+
+  const navigate = useNavigate();
 
   const fetchMessages = async () => {
     setStatus(loading);
@@ -77,9 +80,18 @@ const Contact = () => {
     }
   };
 
+  const handleNavigateToHome = () => {
+    navigate(-1);
+  };
+
   return (
     <S.Container>
-      <Typography variant="h5">Deixe-nos uma mensagem!</Typography>
+      <div>
+        <S.IconArrowBack fontSize="large" onClick={handleNavigateToHome} />
+        <Typography variant="h5" align="center">
+          Deixe-nos uma mensagem!
+        </Typography>
+      </div>
       <S.Form onSubmit={handleSubmitMessage}>
         <TextField
           label="E-mail"
