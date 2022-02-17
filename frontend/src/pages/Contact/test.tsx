@@ -1,12 +1,6 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Contact } from '.';
-
-jest.mock('../../contexts/products', () => ({
-  useProducts: jest.fn(() => ({
-    fetchProducts: jest.fn(),
-  })),
-}));
 
 describe('Contact page', () => {
   it('should render form elements', async () => {
