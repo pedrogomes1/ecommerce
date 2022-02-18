@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Typography,
   CardMedia,
@@ -17,7 +18,11 @@ const skeletonProducts = Array.from({ length: 6 }, (_, index) => index);
 const { error, loading, empty } = RequestStatus;
 
 const ProductsList = () => {
-  const { products, status } = useProducts();
+  const { products, fetchProducts, status } = useProducts();
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   return (
     <>
