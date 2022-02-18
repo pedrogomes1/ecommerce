@@ -1,66 +1,31 @@
-import { RequestStatus } from '../../types';
-import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import { currencyFormatter } from '../../utils/currency';
 import { ProductsList } from '.';
-
-const MAX_PARCEL_AMOUNT = 10;
+import { RequestStatus } from '../../types';
+import { products } from '../../mocks/handlers';
 
 const { error, loading, empty, success, idle } = RequestStatus;
-
-const products = [
-  {
-    id: 'b3a541e7-334b-4cfb-be89-eb92b9aacb5b',
-    name: 'Camiseta Corinthians 2020/2021',
-    price: '100',
-    image_link:
-      'https://res.cloudinary.com/dohrhcaly/image/upload/v1641777518/ecommerce/camiseta-corinthians_gflsp4.webp',
-    priceFormatted: currencyFormatter(100),
-    maxParcelAmount: MAX_PARCEL_AMOUNT,
-    parcelValue: currencyFormatter(100 / MAX_PARCEL_AMOUNT),
-  },
-  {
-    id: '3c30d849-9750-4983-a4ba-d401bb66d165',
-    name: 'Camiseta Flamengo 2020/2021',
-    price: '159.9',
-    image_link:
-      'https://res.cloudinary.com/dohrhcaly/image/upload/v1641777519/ecommerce/camiseta-flamengo_ur6vur.webp',
-    priceFormatted: currencyFormatter(159.9),
-    maxParcelAmount: MAX_PARCEL_AMOUNT,
-    parcelValue: currencyFormatter(159.9 / MAX_PARCEL_AMOUNT),
-  },
-  {
-    id: 'cd701a21-6981-4562-aa8a-d7330b4614a1',
-    name: 'Camiseta Seleção Brasileira Oficial',
-    price: '199.9',
-    image_link:
-      'https://res.cloudinary.com/dohrhcaly/image/upload/v1641777518/ecommerce/camista-brasil_zz2qny.webp',
-    priceFormatted: currencyFormatter(199.9),
-    maxParcelAmount: MAX_PARCEL_AMOUNT,
-    parcelValue: currencyFormatter(199.9 / MAX_PARCEL_AMOUNT),
-  },
-];
 
 let status = idle;
 
 jest.mock('../../contexts/products', () => ({
-  useProducts: jest.fn(() => ({
+  useProducts: () => ({
+    fetchProducts: jest.fn(),
     status,
     products,
-  })),
+  }),
 }));
 
 describe('ProductsList component', () => {
-  it('should skeleton list when status is loading', () => {
+  it('should skeleton list when status is loading', async () => {
     status = loading;
-    render(<ProductsList />, { wrapper: MemoryRouter });
+    render(<ProductsList />);
 
     expect(screen.getAllByRole('list')).toHaveLength(6);
   });
 
   it('should render no products found message when status is empty', () => {
     status = empty;
-    render(<ProductsList />, { wrapper: MemoryRouter });
+    render(<ProductsList />);
 
     expect(
       screen.getByRole('heading', { name: /Nenhum produto encontrado/i }),
@@ -69,7 +34,7 @@ describe('ProductsList component', () => {
 
   it('should render server error message when status is empty', () => {
     status = error;
-    render(<ProductsList />, { wrapper: MemoryRouter });
+    render(<ProductsList />);
 
     expect(
       screen.getByRole('heading', {
@@ -80,7 +45,7 @@ describe('ProductsList component', () => {
 
   it('should render products list when status is success', async () => {
     status = success;
-    render(<ProductsList />, { wrapper: MemoryRouter });
+    render(<ProductsList />);
 
     expect(await screen.findByRole('list')).toBeInTheDocument();
     expect(await screen.findAllByRole('listitem')).toHaveLength(3);
