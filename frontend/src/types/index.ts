@@ -11,3 +11,10 @@ export type CategoryProps = Array<{
   name: string;
   checked: boolean;
 }>;
+
+export type MessageProps = Array<{
+  id: string;
+  created_at: string;
+  message: string;
+  email: string;
+}>;
