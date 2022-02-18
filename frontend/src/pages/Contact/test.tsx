@@ -2,6 +2,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Contact } from '.';
 
+jest.mock('react-router-dom', () => ({
+  useNavigate: () => jest.fn(),
+}));
+
 describe('Contact page', () => {
   it('should render form elements', async () => {
     render(<Contact />);
