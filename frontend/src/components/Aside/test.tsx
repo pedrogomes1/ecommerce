@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Aside } from '.';
 
 jest.mock('../../contexts/products', () => ({
@@ -25,7 +26,7 @@ describe('Aside component', () => {
     expect(firstCheckbox).toBeInTheDocument();
     expect(firstCheckbox).not.toBeChecked();
 
-    fireEvent.click(firstCheckbox);
+    userEvent.click(firstCheckbox);
 
     expect(firstCheckbox).toBeChecked();
   });
