@@ -1,58 +1,24 @@
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Button, TextField, Alert, Grow } from '@mui/material';
-import toast from 'react-hot-toast';
 
-import { SkeletonMessages } from '../../components/SkeletonMessages';
 import { RequestStatus } from '../../types';
-import { api } from '../../services/api';
+import { useMessages } from '../../hooks/useMessages';
+import { SkeletonMessages } from '../../components/SkeletonMessages';
 
 import * as S from './styles';
 
-type MessageProps = Array<{
-  id: string;
-  created_at: string;
-  message: string;
-  email: string;
-}>;
-
-const { idle, empty, error, loading, success } = RequestStatus;
+const { empty, error, loading } = RequestStatus;
 const skeletonMessages = Array.from({ length: 3 }, (_, index) => index);
-
-const formatMessagesData = (messages: MessageProps) => {
-  return messages.map((message) => ({
-    ...message,
-    created_at: new Date(message.created_at).toLocaleDateString(),
-  }));
-};
 
 const Contact = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<MessageProps>([]);
-  const [status, setStatus] = useState<RequestStatus>(idle);
   const [shoudDisplayErrorFormMessage, setShouldDisplayErrorFormMessage] =
     useState(false);
 
   const navigate = useNavigate();
-
-  const fetchMessages = async () => {
-    setStatus(loading);
-    try {
-      const { data } = await api.get('/message');
-
-      const hasMessages = !!data.length;
-
-      setMessages(formatMessagesData(data));
-      setStatus(hasMessages ? success : empty);
-    } catch (err) {
-      setStatus(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchMessages();
-  }, []);
+  const { status, messages, createNewMessage } = useMessages();
 
   const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -68,16 +34,11 @@ const Contact = () => {
     if (!email || !message) {
       return setShouldDisplayErrorFormMessage(true);
     }
-    setStatus(loading);
-    try {
-      await api.post('/message', { email, message });
-      setEmail('');
-      setMessage('');
-      fetchMessages();
-      toast.success('Mensagem cadastrada com sucesso!');
-    } catch (error) {
-      toast.error('Erro ao cadastrar a mensagem!');
-    }
+
+    await createNewMessage(email, message);
+    setEmail('');
+    setMessage('');
+    if (shoudDisplayErrorFormMessage) setShouldDisplayErrorFormMessage(false);
   };
 
   const handleNavigateToHome = () => {
