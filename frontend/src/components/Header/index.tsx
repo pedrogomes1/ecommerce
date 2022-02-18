@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button, TextField, InputAdornment } from '@mui/material';
 import { Mail, Search } from '@mui/icons-material';
 
@@ -36,6 +36,10 @@ const Header = () => {
     navigate('/');
   };
 
+  const handleNavigateToContact = () => {
+    navigate('/contact');
+  };
+
   return (
     <S.Header>
       <S.Logo src={LOGO_URL} alt="App logo" onClick={handleNavigateToHome} />
@@ -51,11 +55,14 @@ const Header = () => {
           ),
         }}
       />
-      <Link to="/contact">
-        <Button variant="outlined" color="primary" startIcon={<Mail />}>
-          Contato
-        </Button>
-      </Link>
+      <Button
+        variant="outlined"
+        color="primary"
+        startIcon={<Mail />}
+        onClick={handleNavigateToContact}
+      >
+        Contato
+      </Button>
     </S.Header>
   );
 };
