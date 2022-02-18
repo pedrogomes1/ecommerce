@@ -2,9 +2,9 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { Aside } from '.';
 
 jest.mock('../../contexts/products', () => ({
-  useProducts: jest.fn(() => ({
+  useProducts: () => ({
     fetchProducts: jest.fn(),
-  })),
+  }),
 }));
 
 describe('Aside component', () => {
