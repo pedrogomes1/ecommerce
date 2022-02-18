@@ -5,3 +5,9 @@ export enum RequestStatus {
   success = 'success',
   error = 'error',
 }
+
+export type CategoryProps = Array<{
+  id: string;
+  name: string;
+  checked: boolean;
+}>;
