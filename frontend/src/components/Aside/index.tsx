@@ -1,5 +1,4 @@
 import { ChangeEvent, useState, useEffect } from 'react';
-import toast from 'react-hot-toast';
 import {
   Typography,
   FormControl,
@@ -7,66 +6,37 @@ import {
   FormControlLabel,
 } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
+
 import { useProducts } from '../../contexts/products';
+import { useCategories } from '../../hooks/useCategories';
+import { getCategoryIds, getCheckedCategories } from './utils';
 
 import * as S from './styles';
-import { api } from '../../services/api';
-
-type CategoryProps = Array<{
-  id: string;
-  name: string;
-  checked: boolean;
-}>;
-
-const getCategoryIds = (categories: CategoryProps) => {
-  const categoryIds = categories
-    .filter(({ checked }) => checked)
-    .map((item) => item.id);
-  return categoryIds;
-};
-
-const formatCategories = (categories: CategoryProps) => {
-  return categories.map(({ id, name }) => ({
-    id,
-    name,
-    checked: false,
-  }));
-};
 
 const Aside = () => {
-  const [categories, setCategories] = useState<CategoryProps>([]);
+  const [categoriesHasUpdated, setCategoriesHasUpdated] = useState(false);
 
   const { fetchProducts } = useProducts();
+  const { categories, setCategories } = useCategories();
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await api.get('/category');
-        setCategories(formatCategories(data));
-      } catch (error) {
-        toast.error('Erro ao buscar as categorias');
-      }
-    };
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    if (categories.length) {
+    if (categoriesHasUpdated) {
       const categoryIds = getCategoryIds(categories);
       fetchProducts(categoryIds);
     }
-  }, [fetchProducts, categories]);
+  }, [categories, categoriesHasUpdated, fetchProducts]);
 
   const handleCheckboxChange = (
     event: ChangeEvent<HTMLInputElement>,
     categoryId: string,
   ) => {
-    const categoriesUpdated = categories.map((category) => ({
-      ...category,
-      checked:
-        category.id === categoryId ? event.target.checked : category.checked,
-    }));
+    const categoriesUpdated = getCheckedCategories(
+      categories,
+      categoryId,
+      event,
+    );
     setCategories(categoriesUpdated);
+    setCategoriesHasUpdated(true);
   };
 
   return (
